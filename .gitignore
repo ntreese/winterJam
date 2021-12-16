@@ -2,16 +2,16 @@
 #
 # Get latest from https://github.com/github/gitignore/blob/master/Unity.gitignore
 #
-/[Ll]ibrary/
-/[Tt]emp/
-/[Oo]bj/
-/[Bb]uild/
-/[Bb]uilds/
-/[Ll]ogs/
-/[Mm]emoryCaptures/
+/winterJam2021/[Ll]ibrary/
+/winterJam2021/[Tt]emp/
+/winterJam2021/[Oo]bj/
+/winterJam2021/[Bb]uild/
+/winterJam2021/[Bb]uilds/
+/winterJam2021/[Ll]ogs/
+/winterJam2021/[Mm]emoryCaptures/
 
 # Asset meta data should only be ignored when the corresponding asset is also ignored
-!/[Aa]ssets/**/*.meta
+!/winterJam2021/[Aa]ssets/**/*.meta
 
 # Uncomment this line if you wish to ignore the asset store tools plugin
 # /[Aa]ssets/AssetStoreTools*
