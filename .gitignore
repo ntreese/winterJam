@@ -60,7 +60,9 @@ sysinfo.txt
 # Crashlytics generated file
 crashlytics-build.properties
 
-
+#Photosho Assets
+*.psd
+*.ai
 
 ###### macOS specifics #####
 # General
