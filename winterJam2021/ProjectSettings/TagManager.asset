@@ -11,10 +11,10 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
-  - 
-  - 
+  - Conveyor Belt
+  - Boxes
+  - Scanner
+  - ScannerLight
   - 
   - 
   - 
@@ -40,4 +40,19 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Conveyor Belt
+    uniqueID: 2152774633
+    locked: 0
+  - name: Boxes
+    uniqueID: 2791046263
+    locked: 0
+  - name: Scanner
+    uniqueID: 4241222183
+    locked: 0
+  - name: UI
+    uniqueID: 2273860497
+    locked: 0
+  - name: CameraFeed
+    uniqueID: 647957243
     locked: 0
