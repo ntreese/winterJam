@@ -70,6 +70,8 @@ public class GameManager : MonoBehaviour {
     public void DidPressRemove() {
         if(currentBox.GetComponent<Box>().GetIsBoxBad()) {
             caughtBoxes++;
+        } else if(!currentBox.GetComponent<Box>().GetIsBoxBad()) {
+            missedBoxes++;
         }
         currentBox.GetComponent<Box>().SetShouldBoxBeRemoved(true);
         conveyorBelt.StartConveyorBelt();
