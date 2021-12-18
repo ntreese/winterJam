@@ -43,9 +43,17 @@ public class ConveyorBelt : MonoBehaviour {
 
     private void OnTriggerEnter2D(Collider2D collision) {
         if (collision.tag == "Box") {
+            // Set ConveyorBelt to full, to prevent spawning new boxes
             isConveyorBeltFull = true;
+
+            // Stop conveyor belt
             ModifyConveyorSpeed(0);
+
+            // Stop all Coroutines that are running on the spawner
             spawner.StopAllCoroutines();
+
+            // "Notify" GameManager what box is currently in
+            GameManager.instance.SetCurrentBox(collision.gameObject);
         }
     }
 
