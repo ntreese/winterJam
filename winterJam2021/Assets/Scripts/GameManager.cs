@@ -48,6 +48,9 @@ public class GameManager : MonoBehaviour {
     // MARK: Public
 
     public void DidPressPass() {
+        if(currentBox.GetComponent<Box>().GetIsBoxBad()) {
+            missedBoxes++;
+        }
         conveyorBelt.StartConveyorBelt();
         Debug.Log("Handling pass");
     }
@@ -64,6 +67,9 @@ public class GameManager : MonoBehaviour {
     }
 
     public void DidPressRemove() {
+        if(currentBox.GetComponent<Box>().GetIsBoxBad()) {
+            caughtBoxes++;
+        }
         currentBox.GetComponent<Box>().SetShouldBoxBeRemoved(true);
         conveyorBelt.StartConveyorBelt();
     }

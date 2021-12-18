@@ -9,6 +9,6 @@ public class showCaught : MonoBehaviour
     public Text caughtText;
 
     void Update() {
-        caughtText.text = "Caught: " + GameManager.instance.GetMissed();
+        caughtText.text = "Caught: " + GameManager.instance.GetCaught();
     }
 }
