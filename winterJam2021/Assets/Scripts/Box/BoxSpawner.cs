@@ -12,8 +12,10 @@ public class BoxSpawner : MonoBehaviour {
     [SerializeField] GameObject conveyorBelt;
 
     private ConveyorBelt conveyorBeltScript;
+    private RandomBoxSprite spriteHolder;
 
     private void Awake() {
+        spriteHolder = FindObjectOfType<RandomBoxSprite>();
         conveyorBeltScript = conveyorBelt.GetComponent<ConveyorBelt>();
     }
 
@@ -41,6 +43,8 @@ public class BoxSpawner : MonoBehaviour {
         GameObject newBox = Instantiate(boxPrefab, transform.position, Quaternion.identity) as GameObject;
 
         // Get BoxComponent and set config
+        BoxConfigSO config = boxes[GetRandomIndexForBox()];
+        config.SetNormalSprite(spriteHolder.GetRandomBoxSprite());
         newBox.GetComponent<Box>().SetConfig(boxes[GetRandomIndexForBox()]);
     }
 

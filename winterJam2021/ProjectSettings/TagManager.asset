@@ -43,6 +43,9 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Peter
+    uniqueID: 4131063605
+    locked: 0
   - name: Conveyor Belt
     uniqueID: 2152774633
     locked: 0

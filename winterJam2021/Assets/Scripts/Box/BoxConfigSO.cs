@@ -5,10 +5,15 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "BoxConfigSO")]
 public class BoxConfigSO : ScriptableObject
 {
-    [SerializeField] Sprite normalSprite;
     [SerializeField] Sprite xRaySprite;
     [SerializeField] bool isBad;
 
+    private RandomBoxSprite spriteHolder;
+    private Sprite normalSprite;
+
+    public void SetNormalSprite(Sprite newSprite) {
+        normalSprite = newSprite;
+    }
 
     public Sprite GetNormalSprite() {
         return normalSprite;

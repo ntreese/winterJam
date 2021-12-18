@@ -14,7 +14,7 @@ public class PeterDeleter : MonoBehaviour
             if(box.GetShouldBoxBeRemoved()) {
                 Debug.Log("box bad");
                 collision.gameObject.GetComponent<Rigidbody2D>().freezeRotation = false;
-                collision.gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(100, 10);
+                collision.gameObject.GetComponent<Rigidbody2D>().velocity += new Vector2(10, 10);
             }
         }
     }
