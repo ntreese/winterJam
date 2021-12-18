@@ -11,10 +11,13 @@ public class Box : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     private Sprite initialSprite;
 
+    // Config - Holds sprites + if it is Bad or Good
+    private BoxConfigSO config;
+
     // WARNING: Always set to true!
-    private bool isBad = true;
     private bool shouldBeRemoved = false;
 
+    // MARK: - Unity Lifecycle
     private void Awake() {
         spriteRenderer = GetComponent<SpriteRenderer>();
         initialSprite = spriteRenderer.sprite;
@@ -29,20 +32,25 @@ public class Box : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        
     }
 
+    // MARK: ConfigRelated
+    public void SetConfig(BoxConfigSO config) {
+        this.config = config;
+        DidSetConfig();
+    }
 
     public void XRayBox() {
-        spriteRenderer.sprite = xraySprite;
+        spriteRenderer.sprite = config.GetXRaySprite();
     }
 
-    public void StopXRayBox() {
-        spriteRenderer.sprite = initialSprite;
+    public void ResetBoxSprite() {
+        spriteRenderer.sprite = config.GetNormalSprite();
     }
 
     public bool GetIsBoxBad() {
-        return isBad;
+        return config.GetIsBad();
     }
 
     public bool GetShouldBoxBeRemoved() {
@@ -54,6 +62,9 @@ public class Box : MonoBehaviour
     }
 
     // MARK: Private
+    private void DidSetConfig() {
+        ResetBoxSprite();
+    }
 
     private bool IsVisibleToCamera(Vector2 point) {
         return Camera.main.WorldToViewportPoint(point).x < 0;

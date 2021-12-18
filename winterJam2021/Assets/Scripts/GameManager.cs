@@ -74,7 +74,7 @@ public class GameManager : MonoBehaviour {
     private IEnumerator StopXRay() {
         yield return new WaitForSecondsRealtime(scanDuration);
 
-        currentBox.GetComponent<Box>().StopXRayBox();
+        currentBox.GetComponent<Box>().ResetBoxSprite();
         scanner.StopXRay();
     }
 }

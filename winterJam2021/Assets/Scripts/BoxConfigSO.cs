@@ -17,4 +17,8 @@ public class BoxConfigSO : ScriptableObject
     public Sprite GetXRaySprite() {
         return xRaySprite;
     }
+
+    public bool GetIsBad() {
+        return isBad;
+    }
 }
