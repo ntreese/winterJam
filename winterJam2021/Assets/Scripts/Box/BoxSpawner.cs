@@ -45,6 +45,7 @@ public class BoxSpawner : MonoBehaviour {
         // Get BoxComponent and set config
         BoxConfigSO newConfig = GetRandomBoxConfig();
         newConfig.SetNormalSprite(spriteHolder.GetRandomBoxSprite());
+        newConfig.SetDidSetSprite();
         newBox.GetComponent<Box>().SetConfig(newConfig);
     }
 
@@ -53,13 +54,12 @@ public class BoxSpawner : MonoBehaviour {
             BoxConfigSO config = boxes[i];
 
             int randomInt = Random.Range(1, 10);
-            Debug.Log("current randomInt: " + randomInt);
-
             if (randomInt <= config.GetProbability()) {
                 return config;
             }
         }
 
+        
         // If it happens that no probability is there, we loop again over it.
         return GetRandomBoxConfig();
     }

@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "BoxConfigSO")]
-public class BoxConfigSO : ScriptableObject
-{
+public class BoxConfigSO : ScriptableObject {
     [SerializeField] Sprite xRaySprite;
     [SerializeField] bool isBad;
 
@@ -12,15 +11,14 @@ public class BoxConfigSO : ScriptableObject
     [Tooltip("Please enter an integer between 1 and 10. If you want a probability of 40% then please enter 4.")]
     [SerializeField] int probability = 1;
 
+    private bool didSetSprite;
+
     private Sprite initialSprite;
 
     public void SetNormalSprite(Sprite newSprite) {
-        if(initialSprite == null) {
+        if(!didSetSprite) {
             initialSprite = newSprite;
-        } else {
-            Debug.Log("Trying to alter sprite again, although it is already set.");
         }
-        
     }
 
     public Sprite GetNormalSprite() {
@@ -37,5 +35,13 @@ public class BoxConfigSO : ScriptableObject
 
     public int GetProbability() {
         return probability;
+    }
+
+    public bool GetDidSetSprite() {
+        return didSetSprite;
+    }
+
+    public void SetDidSetSprite() {
+        didSetSprite = true;
     }
 }
