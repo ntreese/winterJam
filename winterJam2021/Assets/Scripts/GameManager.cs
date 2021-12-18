@@ -5,8 +5,12 @@ using UnityEngine;
 public class GameManager : MonoBehaviour {
     public static GameManager instance;
 
+    ConveyorBelt conveyorBelt;
+
+
     private void Awake() {
         HandleGameManager();
+        conveyorBelt = FindObjectOfType<ConveyorBelt>();
     }
 
     public void HandleGameManager() {
@@ -30,6 +34,7 @@ public class GameManager : MonoBehaviour {
     }
 
     public void DidPressPass() {
+        conveyorBelt.StartConveyorBelt();
         Debug.Log("Handling pass");
     }
 

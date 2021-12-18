@@ -13,11 +13,6 @@ public class Button : MonoBehaviour {
     [SerializeField] ButtonType type;
 
     public void DidClickButton() {
-        if(type == null) {
-            Debug.LogError("You forgot to set the type you lil shit.");
-            return;
-        }
-
         switch (type) {
             case ButtonType.Remove:
                 GameManager.instance.DidPressRemove();                
