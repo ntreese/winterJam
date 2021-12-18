@@ -3,10 +3,25 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour {
+
+    [SerializeField] float scanDuration = 5f;
+
     public static GameManager instance;
+
+    public int missedBoxes = 0;
+    public int caughtBoxes = 0;
+    public int scansRemaining = 10;
+
+    ConveyorBelt conveyorBelt;
+    Scanner scanner;
+
+    // Holds the gameObject that is currently inside of the scanner
+    private GameObject currentBox;
 
     private void Awake() {
         HandleGameManager();
+        scanner = FindObjectOfType<Scanner>();
+        conveyorBelt = FindObjectOfType<ConveyorBelt>();
     }
 
     public void HandleGameManager() {
@@ -29,15 +44,65 @@ public class GameManager : MonoBehaviour {
 
     }
 
+
+    // MARK: Public
+
     public void DidPressPass() {
+        if(currentBox.GetComponent<Box>().GetIsBoxBad()) {
+            missedBoxes++;
+        }
+        conveyorBelt.StartConveyorBelt();
         Debug.Log("Handling pass");
     }
 
     public void DidPressScan() {
-        Debug.Log("Handling scan");
+        if (scansRemaining > 0 && currentBox.GetComponent<Box>().GetGotScanned() == false) {
+            Debug.Log("Handling scan");
+            scansRemaining--;
+
+            currentBox.GetComponent<Box>().SetGotScanned();
+            currentBox.GetComponent<Box>().XRayBox();
+            scanner.DoXRay();
+            StartCoroutine(StopXRay());
+        }
     }
 
     public void DidPressRemove() {
-        Debug.Log("Handling remove");
+        if(currentBox.GetComponent<Box>().GetIsBoxBad()) {
+            caughtBoxes++;
+        } else if(!currentBox.GetComponent<Box>().GetIsBoxBad()) {
+            missedBoxes++;
+        }
+        currentBox.GetComponent<Box>().SetShouldBoxBeRemoved(true);
+        conveyorBelt.StartConveyorBelt();
+    }
+
+    public GameObject GetCurrentBox() {
+        return currentBox;
+    }
+
+    public int GetMissed() {
+        return missedBoxes;
+    }
+
+    public int GetCaught() {
+        return caughtBoxes;
+    }
+
+    public int GetScans() {
+        return scansRemaining;
+    }
+
+    public void SetCurrentBox(GameObject newBox) {
+        currentBox = newBox;
+    }
+
+    // MARK: Private
+
+    private IEnumerator StopXRay() {
+        yield return new WaitForSecondsRealtime(scanDuration);
+
+        currentBox.GetComponent<Box>().ResetBoxSprite();
+        scanner.StopXRay();
     }
 }
