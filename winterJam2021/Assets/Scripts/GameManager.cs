@@ -8,6 +8,10 @@ public class GameManager : MonoBehaviour {
 
     public static GameManager instance;
 
+    public int missedBoxes = 0;
+    public int caughtBoxes = 0;
+    public int scansRemaining = 10;
+
     ConveyorBelt conveyorBelt;
     Scanner scanner;
 
@@ -44,25 +48,46 @@ public class GameManager : MonoBehaviour {
     // MARK: Public
 
     public void DidPressPass() {
+        if(currentBox.GetComponent<Box>().GetIsBoxBad()) {
+            missedBoxes++;
+        }
         conveyorBelt.StartConveyorBelt();
         Debug.Log("Handling pass");
     }
 
     public void DidPressScan() {
-        Debug.Log("Handling scan");
-        currentBox.GetComponent<Box>().XRayBox();
+        if (scansRemaining > 0) {
+            Debug.Log("Handling scan");
+            scansRemaining--;
 
-        scanner.DoXRay();
-        StartCoroutine(StopXRay());
+            currentBox.GetComponent<Box>().XRayBox();
+            scanner.DoXRay();
+            StartCoroutine(StopXRay());
+        }
     }
 
     public void DidPressRemove() {
+        if(currentBox.GetComponent<Box>().GetIsBoxBad()) {
+            caughtBoxes++;
+        }
         currentBox.GetComponent<Box>().SetShouldBoxBeRemoved(true);
         conveyorBelt.StartConveyorBelt();
     }
 
     public GameObject GetCurrentBox() {
         return currentBox;
+    }
+
+    public int GetMissed() {
+        return missedBoxes;
+    }
+
+    public int GetCaught() {
+        return caughtBoxes;
+    }
+
+    public int GetScans() {
+        return scansRemaining;
     }
 
     public void SetCurrentBox(GameObject newBox) {
