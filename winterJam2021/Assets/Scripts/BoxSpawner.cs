@@ -5,17 +5,12 @@ using UnityEngine;
 public class BoxSpawner : MonoBehaviour {
     [Header("Boxes")]
     [SerializeField] List<GameObject> boxes;
-    [SerializeField] float initialDelayBeforeFilling = 2f;
     [SerializeField] float spawnDelay = 2f;
-    [SerializeField] bool shouldSpawnBoxes = true;
 
     [Header("ConveyorBelt")]
     [SerializeField] GameObject conveyorBelt;
 
     private ConveyorBelt conveyorBeltScript;
-
-    private float timePassed = 0;
-
 
     private void Awake() {
         conveyorBeltScript = conveyorBelt.GetComponent<ConveyorBelt>();
@@ -31,34 +26,16 @@ public class BoxSpawner : MonoBehaviour {
 
     }
 
-    // Too fckin tired to properly write an advanced Coroutine
-    // Current problem: The amount of time between moving and spawning is too small
-    // Therefore we already stop without spawning.
-
-    //private IEnumerator FillUpConveyorBelt() {
-    //    while (shouldSpawnBoxes) {
-    //        while (timePassed < spawnDelay) {
-    //            timePassed += Time.deltaTime;
-    //            yield return null;
-    //        }
-
-    //        if (!conveyorBeltScript.GetIsConveyorBeltFull()) {
-    //            SpawnBox();
-    //            timePassed = 0;
-    //        }
-
-    //        yield return new WaitForSecondsRealtime(initialDelayBeforeFilling);
-    //    }
-    //}
-
     private IEnumerator FillUpConveyorBelt() {
         while (!conveyorBeltScript.GetIsConveyorBeltFull()) {
-            yield return new WaitForSecondsRealtime(initialDelayBeforeFilling);
-            SpawnBox();
+            yield return new WaitForSecondsRealtime(spawnDelay);
+            StartCoroutine(SpawnBox(0f));
         }
     }
 
-    public void SpawnBox() {
+    public IEnumerator SpawnBox(float delay) {
+        yield return new WaitForSeconds(delay);
+
         Instantiate(boxes[0], transform.position, Quaternion.identity);
     }
 }
