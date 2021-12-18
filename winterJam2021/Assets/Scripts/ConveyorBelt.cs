@@ -2,8 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ConveyorBelt : MonoBehaviour
-{
+public class ConveyorBelt : MonoBehaviour {
     [SerializeField] float conveyorBeltSpeed = 2f;
 
     private bool isConveyorBeltFull = false;
@@ -18,15 +17,13 @@ public class ConveyorBelt : MonoBehaviour
     }
 
     // Start is called before the first frame update
-    void Start()
-    {
+    void Start() {
         effector.speed = conveyorBeltSpeed;
     }
 
     // Update is called once per frame
-    void Update()
-    {
-        
+    void Update() {
+
     }
 
     // MARK: - Public
@@ -45,22 +42,19 @@ public class ConveyorBelt : MonoBehaviour
     // MARK: - Private
 
     private void OnTriggerEnter2D(Collider2D collision) {
-        HandleCollision(true, collision.tag);
+        if (collision.tag == "Box") {
+            isConveyorBeltFull = true;
+            ModifyConveyorSpeed(0);
+            spawner.StopAllCoroutines();
+        }
     }
 
     private void OnTriggerExit2D(Collider2D collision) {
-        HandleCollision(false, collision.tag);
-    }
+        if (collision.tag == "Box") {
+            ModifyConveyorSpeed(conveyorBeltSpeed);
+            isConveyorBeltFull = false;
 
-    private void HandleCollision(bool isFull, string tag) {
-        if (tag == "Box") {
-            isConveyorBeltFull = isFull;
-            effector.speed = isFull ? 0 : conveyorBeltSpeed;
-
-            if(isFull) {
-                // we need to stop all coroutines to prevent spawning
-                spawner.StopAllCoroutines();
-            }
+            StartCoroutine(spawner.SpawnBox(1f));
         }
     }
 
