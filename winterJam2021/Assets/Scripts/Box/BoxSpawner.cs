@@ -13,7 +13,7 @@ public class BoxSpawner : MonoBehaviour {
 
     private ConveyorBelt conveyorBeltScript;
     private RandomBoxSprite spriteHolder;
-    private int spawnedBoxes;
+    private int spawnedBoxes = 0;
 
     private void Awake() {
         spriteHolder = FindObjectOfType<RandomBoxSprite>();
@@ -31,16 +31,10 @@ public class BoxSpawner : MonoBehaviour {
     }
 
     private IEnumerator FillUpConveyorBelt() {
-        while (!conveyorBeltScript.GetIsConveyorBeltFull() &&
-            spawnedBoxes <= LevelManager.instance.GetCurrentLevel().GetNumberOfTotalBoxes()) {
+        while (!conveyorBeltScript.GetIsConveyorBeltFull()) {
             yield return new WaitForSecondsRealtime(spawnDelay);
 
-            spawnedBoxes++;
             StartCoroutine(SpawnBox(0f));
-        }
-
-        if(spawnedBoxes <= LevelManager.instance.GetCurrentLevel().GetNumberOfTotalBoxes()) {
-            LevelManager.instance.GetCurrentLevel().SetDidFinishSpawning();
         }
     }
 
@@ -60,10 +54,11 @@ public class BoxSpawner : MonoBehaviour {
         newConfig.SetNormalSprite(spriteHolder.GetRandomBoxSprite(newConfig.GetXRaySprite().name));
         newConfig.SetDidSetSprite();
         newBox.GetComponent<Box>().SetConfig(newConfig);
+        spawnedBoxes++;
     }
 
     private bool CheckIfSpawnAllowed() {
-        return spawnedBoxes <= LevelManager.instance.GetCurrentLevel().GetNumberOfTotalBoxes();
+        return spawnedBoxes < LevelManager.instance.GetCurrentLevel().GetNumberOfTotalBoxes();
     }
 
     private BoxConfigSO GetRandomBoxConfig() {
