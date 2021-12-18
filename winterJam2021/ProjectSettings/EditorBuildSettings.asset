@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Hannes Scene.unity
     guid: bcf2186bf40b34a108a824382ef643a5
+  - enabled: 1
+    path: Assets/Scenes/Game Over.unity
+    guid: 7ceb79e8873a89e4ab9f76a73b9b6754
   m_configObjects: {}

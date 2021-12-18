@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour {
 
     [SerializeField] float scanDuration = 5f;
@@ -41,15 +41,22 @@ public class GameManager : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
-
+        
     }
 
+    private void GameOver() {
+        if(missedBoxes >= 5) {
+            StopAllCoroutines();
+            SceneManager.LoadScene(2);
+        }
+    }
 
     // MARK: Public
 
     public void DidPressPass() {
         if(currentBox.GetComponent<Box>().GetIsBoxBad()) {
             missedBoxes++;
+            GameOver();
         }
         conveyorBelt.StartConveyorBelt();
         Debug.Log("Handling pass");
@@ -72,6 +79,7 @@ public class GameManager : MonoBehaviour {
             caughtBoxes++;
         } else if(!currentBox.GetComponent<Box>().GetIsBoxBad()) {
             missedBoxes++;
+            GameOver();
         }
         currentBox.GetComponent<Box>().SetShouldBoxBeRemoved(true);
         conveyorBelt.StartConveyorBelt();
