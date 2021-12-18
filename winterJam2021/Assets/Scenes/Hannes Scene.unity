@@ -1684,8 +1684,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f2deb339b28543ea898123b24e8cc25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  boxPrefab: {fileID: 4370728658802164024, guid: 36aac01da5fd54715ad46266236af26a, type: 3}
   boxes:
-  - {fileID: 4370728658802164024, guid: 36aac01da5fd54715ad46266236af26a, type: 3}
+  - {fileID: 11400000, guid: 70702f2df5dc9453f98c51e5f978e89b, type: 2}
+  - {fileID: 11400000, guid: 08e7445fdbb1446488b20eaea663b27a, type: 2}
   spawnDelay: 2
   conveyorBelt: {fileID: 2083808679}
 --- !u!4 &1368112649
@@ -2942,7 +2944,7 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 3.02, y: 1.86}
+  m_Offset: {x: 3.15, y: 1.86}
   serializedVersion: 2
   m_Radius: 0.50018835
 --- !u!114 &2083808686

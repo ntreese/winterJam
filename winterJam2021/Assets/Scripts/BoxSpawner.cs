@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class BoxSpawner : MonoBehaviour {
     [Header("Boxes")]
-    [SerializeField] List<GameObject> boxes;
+    [SerializeField] GameObject boxPrefab;
+    [SerializeField] List<BoxConfigSO> boxes;
     [SerializeField] float spawnDelay = 2f;
 
     [Header("ConveyorBelt")]
@@ -36,6 +37,20 @@ public class BoxSpawner : MonoBehaviour {
     public IEnumerator SpawnBox(float delay) {
         yield return new WaitForSeconds(delay);
 
-        Instantiate(boxes[0], transform.position, Quaternion.identity);
+        // Instantiate new box at spawner position
+        GameObject newBox = Instantiate(boxPrefab, transform.position, Quaternion.identity) as GameObject;
+
+        // Get BoxComponent and set config
+        newBox.GetComponent<Box>().SetConfig(boxes[GetRandomIndexForBox()]);
+    }
+
+    private int GetRandomIndexForBox() {
+        Debug.Log("count: " + boxes.Count);
+
+        int random = Random.Range(0, boxes.Count);
+
+        Debug.Log("randomNr: " + random);
+
+        return random;
     }
 }

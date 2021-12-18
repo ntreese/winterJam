@@ -7,7 +7,7 @@ public class BoxSpriteChanger : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision) {
         if(collision.tag == "Box") {
             Box box = collision.gameObject.GetComponent<Box>();
-            box.StopXRayBox();
+            box.ResetBoxSprite();
         }
     }
 }
