@@ -43,18 +43,24 @@ public class BoxSpawner : MonoBehaviour {
         GameObject newBox = Instantiate(boxPrefab, transform.position, Quaternion.identity) as GameObject;
 
         // Get BoxComponent and set config
-        BoxConfigSO config = boxes[GetRandomIndexForBox()];
-        config.SetNormalSprite(spriteHolder.GetRandomBoxSprite());
-        newBox.GetComponent<Box>().SetConfig(boxes[GetRandomIndexForBox()]);
+        BoxConfigSO newConfig = GetRandomBoxConfig();
+        newConfig.SetNormalSprite(spriteHolder.GetRandomBoxSprite());
+        newBox.GetComponent<Box>().SetConfig(newConfig);
     }
 
-    private int GetRandomIndexForBox() {
-        Debug.Log("count: " + boxes.Count);
+    private BoxConfigSO GetRandomBoxConfig() {
+        for(int i = 0; i < boxes.Count; i++) {
+            BoxConfigSO config = boxes[i];
 
-        int random = Random.Range(0, boxes.Count);
+            int randomInt = Random.Range(1, 10);
+            Debug.Log("current randomInt: " + randomInt);
 
-        Debug.Log("randomNr: " + random);
+            if (randomInt <= config.GetProbability()) {
+                return config;
+            }
+        }
 
-        return random;
+        // If it happens that no probability is there, we loop again over it.
+        return GetRandomBoxConfig();
     }
 }
