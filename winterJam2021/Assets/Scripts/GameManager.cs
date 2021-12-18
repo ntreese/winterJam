@@ -56,10 +56,11 @@ public class GameManager : MonoBehaviour {
     }
 
     public void DidPressScan() {
-        if (scansRemaining > 0) {
+        if (scansRemaining > 0 && currentBox.GetComponent<Box>().GetGotScanned() == false) {
             Debug.Log("Handling scan");
             scansRemaining--;
 
+            currentBox.GetComponent<Box>().SetGotScanned();
             currentBox.GetComponent<Box>().XRayBox();
             scanner.DoXRay();
             StartCoroutine(StopXRay());

@@ -18,7 +18,7 @@ public class Button : MonoBehaviour {
                 GameManager.instance.DidPressRemove();                
                 break;
             case ButtonType.Scan:
-                GameManager.instance.DidPressScan();
+                GameManager.instance.DidPressScan();  
                 break;
             case ButtonType.Pass:
                 GameManager.instance.DidPressPass();

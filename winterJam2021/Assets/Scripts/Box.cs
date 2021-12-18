@@ -14,6 +14,7 @@ public class Box : MonoBehaviour
     // WARNING: Always set to true!
     private bool isBad = true;
     private bool shouldBeRemoved = false;
+    private bool gotScanned = false;
 
     private void Awake() {
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -43,6 +44,14 @@ public class Box : MonoBehaviour
 
     public bool GetIsBoxBad() {
         return isBad;
+    }
+
+    public bool GetGotScanned() {
+        return gotScanned;
+    }
+
+    public void SetGotScanned() {
+        gotScanned = true;
     }
 
     public bool GetShouldBoxBeRemoved() {
