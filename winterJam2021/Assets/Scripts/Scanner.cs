@@ -12,7 +12,6 @@ public class Scanner : MonoBehaviour
     }
 
     public void DoXRay() {
-        Debug.Log($"color change {scannerColor}");
         scannerLight.color = scannerColor;
     }
 

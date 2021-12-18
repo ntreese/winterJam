@@ -13,6 +13,7 @@ public class BoxSpawner : MonoBehaviour {
 
     private ConveyorBelt conveyorBeltScript;
     private RandomBoxSprite spriteHolder;
+    private int spawnedBoxes;
 
     private void Awake() {
         spriteHolder = FindObjectOfType<RandomBoxSprite>();
@@ -30,13 +31,25 @@ public class BoxSpawner : MonoBehaviour {
     }
 
     private IEnumerator FillUpConveyorBelt() {
-        while (!conveyorBeltScript.GetIsConveyorBeltFull()) {
+        while (!conveyorBeltScript.GetIsConveyorBeltFull() &&
+            spawnedBoxes <= LevelManager.instance.GetCurrentLevel().GetNumberOfTotalBoxes()) {
             yield return new WaitForSecondsRealtime(spawnDelay);
+
+            spawnedBoxes++;
             StartCoroutine(SpawnBox(0f));
+        }
+
+        if(spawnedBoxes <= LevelManager.instance.GetCurrentLevel().GetNumberOfTotalBoxes()) {
+            LevelManager.instance.GetCurrentLevel().SetDidFinishSpawning();
         }
     }
 
     public IEnumerator SpawnBox(float delay) {
+        if(!CheckIfSpawnAllowed()) {
+            LevelManager.instance.GetCurrentLevel().SetDidFinishSpawning();
+            yield break;
+        }
+
         yield return new WaitForSeconds(delay);
 
         // Instantiate new box at spawner position
@@ -44,9 +57,13 @@ public class BoxSpawner : MonoBehaviour {
 
         // Get BoxComponent and set config
         BoxConfigSO newConfig = GetRandomBoxConfig();
-        newConfig.SetNormalSprite(spriteHolder.GetRandomBoxSprite());
+        newConfig.SetNormalSprite(spriteHolder.GetRandomBoxSprite(newConfig.GetXRaySprite().name));
         newConfig.SetDidSetSprite();
         newBox.GetComponent<Box>().SetConfig(newConfig);
+    }
+
+    private bool CheckIfSpawnAllowed() {
+        return spawnedBoxes <= LevelManager.instance.GetCurrentLevel().GetNumberOfTotalBoxes();
     }
 
     private BoxConfigSO GetRandomBoxConfig() {
@@ -58,7 +75,6 @@ public class BoxSpawner : MonoBehaviour {
                 return config;
             }
         }
-
         
         // If it happens that no probability is there, we loop again over it.
         return GetRandomBoxConfig();

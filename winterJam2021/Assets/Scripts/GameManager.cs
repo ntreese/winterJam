@@ -45,7 +45,7 @@ public class GameManager : MonoBehaviour {
     }
 
     private void GameOver() {
-        if(missedBoxes >= 5) {
+        if(missedBoxes >= LevelManager.instance.GetCurrentLevel().GetAllowedMissingBoxes()) {
             StopAllCoroutines();
             SceneManager.LoadScene(2);
         }
