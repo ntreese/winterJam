@@ -3,9 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class showMissed : MonoBehaviour
-{
-    private int missed = 0;
+public class showMissed : MonoBehaviour {
     public Text missedText;
 
     void Update() {
