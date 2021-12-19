@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour {
 
     [SerializeField] float scanDuration = 5f;
+    [SerializeField] List<Sprite> backgrounds;
     [SerializeField] GameObject background;
 
     public static GameManager instance;
@@ -40,12 +41,12 @@ public class GameManager : MonoBehaviour {
 
     // Start is called before the first frame update
     void Start() {
-        background.GetComponent<SpriteRenderer>().sprite = LevelManager.instance.GetCurrentLevel().GetBackground();
+        
     }
 
     // Update is called once per frame
     void Update() {
-        
+
     }
 
     private void GameOver() {
@@ -123,6 +124,13 @@ public class GameManager : MonoBehaviour {
             boxesGoneThrough >= LevelManager.instance.GetCurrentLevel().GetNumberOfTotalBoxes()) {
 
             StartCoroutine(LoadNextLevel());
+        }
+    }
+
+    public void UpdateBackground(int index) {
+        Debug.Log("index: " + index);
+        if(backgrounds[index] != null) {
+            background.GetComponent<SpriteRenderer>().sprite = backgrounds[index];
         }
     }
 

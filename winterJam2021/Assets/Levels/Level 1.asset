@@ -16,4 +16,4 @@ MonoBehaviour:
   numberOfTotalBoxes: 5
   allowedMissedBoxes: 4
   objective: 5
-  background: {fileID: 21300000, guid: 7be76d26e8815cb469e365bb800fd8d2, type: 3}
+  background: {fileID: 21300000, guid: 94cd9cbc8825f7d4db78177f80ccd887, type: 3}

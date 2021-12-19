@@ -19,7 +19,8 @@ public class LevelManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        instance.currentLevel = availableLevels[levelIndex];
+        currentLevel = availableLevels[levelIndex];
+        GameManager.instance.UpdateBackground(levelIndex);
     }
 
     private void HandleSingleton() {
@@ -47,10 +48,13 @@ public class LevelManager : MonoBehaviour
     }
 
     public void didFinishLevel() {
+        Debug.Log("did finsih level");
         levelIndex++;
 
         if(availableLevels[levelIndex] != null) {
             currentLevel = availableLevels[levelIndex];
+            spawnedBoxes = 0;
+            Debug.Log("New Level, index " + levelIndex);
         }
     }
 

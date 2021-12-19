@@ -9,8 +9,6 @@ public class Level : ScriptableObject
     [SerializeField] int numberOfTotalBoxes;
     [SerializeField] int allowedMissedBoxes;
     [SerializeField] int objective;
-    [SerializeField] Sprite background;
-
 
     private bool didFinishSpawning = false;
 
@@ -24,10 +22,6 @@ public class Level : ScriptableObject
 
     public int GetAllowedMissingBoxes() {
         return allowedMissedBoxes;
-    }
-
-    public Sprite GetBackground() {
-        return background;
     }
 
     public int ShowObjective() {
