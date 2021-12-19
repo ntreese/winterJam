@@ -11,7 +11,7 @@ public class BoxConfigSO : ScriptableObject {
     [Tooltip("Please enter an integer between 1 and 10. If you want a probability of 40% then please enter 4.")]
     [SerializeField] int probability = 1;
 
-    private bool didSetSprite;
+    private bool didSetSprite = false;
 
     private Sprite initialSprite;
 

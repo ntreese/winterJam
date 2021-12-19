@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Level 1
   m_EditorClassIdentifier: 
   numberOfScans: 5
-  numberOfTotalBoxes: 4
+  numberOfTotalBoxes: 10
   allowedMissedBoxes: 4
   background: {fileID: 0}

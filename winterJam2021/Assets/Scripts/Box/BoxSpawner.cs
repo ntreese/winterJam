@@ -58,6 +58,7 @@ public class BoxSpawner : MonoBehaviour {
         BoxConfigSO newConfig = GetRandomBoxConfig();
         newConfig.SetNormalSprite(spriteHolder.GetRandomBoxSprite(newConfig.GetXRaySprite().name));
         newConfig.SetDidSetSprite();
+
         newBox.GetComponent<Box>().SetConfig(newConfig);
         spawnedBoxes++;
     }
