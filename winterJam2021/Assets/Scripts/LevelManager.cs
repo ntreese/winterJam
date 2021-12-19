@@ -9,7 +9,8 @@ public class LevelManager : MonoBehaviour
     [SerializeField] Level[] availableLevels;
 
     private Level currentLevel;
-    private int levelIndex;
+    private int levelIndex = 0;
+    private int spawnedBoxes = 0;
 
     private void Awake() {
         HandleSingleton();
@@ -18,7 +19,6 @@ public class LevelManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        levelIndex = 0;
         instance.currentLevel = availableLevels[levelIndex];
     }
 
@@ -48,5 +48,13 @@ public class LevelManager : MonoBehaviour
         if(availableLevels[levelIndex] != null) {
             currentLevel = availableLevels[levelIndex];
         }
+    }
+
+    public void IncrementSpawnedBoxes() {
+        spawnedBoxes++;
+    }
+
+    public int GetSpawnedBoxes() {
+        return spawnedBoxes;
     }
 }

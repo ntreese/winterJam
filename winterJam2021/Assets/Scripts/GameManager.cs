@@ -112,10 +112,11 @@ public class GameManager : MonoBehaviour {
     }
 
     public void LevelDone() {
-        // TODO: @Hannes - Line below is faulty, we need to check if all boxes are checked.
-        //if(LevelManager.instance.GetCurrentLevel().GetDidFinishSpawning()) {
-        //    StartCoroutine(LoadNextLevel());
-        //}
+        if(LevelManager.instance.GetCurrentLevel().GetDidFinishSpawning() &&
+            LevelManager.instance.GetSpawnedBoxes() >= LevelManager.instance.GetCurrentLevel().GetNumberOfTotalBoxes()) {
+
+            StartCoroutine(LoadNextLevel());
+        }
     }
 
     private IEnumerator LoadNextLevel() {

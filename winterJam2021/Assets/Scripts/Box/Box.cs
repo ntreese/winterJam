@@ -47,7 +47,6 @@ public class Box : MonoBehaviour
     }
 
     public void ResetBoxSprite() {
-        Debug.Log("sprite:" + config.GetNormalSprite().name);
         spriteRenderer.sprite = config.GetNormalSprite();
     }
 

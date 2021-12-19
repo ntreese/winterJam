@@ -13,7 +13,6 @@ public class BoxSpawner : MonoBehaviour {
 
     private ConveyorBelt conveyorBeltScript;
     private RandomBoxSprite spriteHolder;
-    private int spawnedBoxes = 0;
 
     private void Awake() {
         spriteHolder = FindObjectOfType<RandomBoxSprite>();
@@ -60,11 +59,11 @@ public class BoxSpawner : MonoBehaviour {
         newConfig.SetDidSetSprite();
 
         newBox.GetComponent<Box>().SetConfig(newConfig);
-        spawnedBoxes++;
+        LevelManager.instance.IncrementSpawnedBoxes();
     }
 
     private bool CheckIfSpawnAllowed() {
-        return spawnedBoxes < LevelManager.instance.GetCurrentLevel().GetNumberOfTotalBoxes();
+        return LevelManager.instance.GetSpawnedBoxes() < LevelManager.instance.GetCurrentLevel().GetNumberOfTotalBoxes();
     }
 
     private BoxConfigSO GetRandomBoxConfig() {
