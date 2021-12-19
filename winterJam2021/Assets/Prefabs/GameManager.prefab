@@ -44,6 +44,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scanDuration: 1
+  background: {fileID: 5572860024867413055, guid: 9b358e4d5ac6ef04bb76302dbbb6ac81, type: 3}
   missedBoxes: 0
   caughtBoxes: 0
   scansRemaining: 10
+  boxesGoneThrough: 0

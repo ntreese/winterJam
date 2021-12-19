@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour {
 
     [SerializeField] float scanDuration = 5f;
+    [SerializeField] GameObject background;
 
     public static GameManager instance;
 
@@ -39,7 +40,7 @@ public class GameManager : MonoBehaviour {
 
     // Start is called before the first frame update
     void Start() {
-
+        background.GetComponent<SpriteRenderer>().sprite = LevelManager.instance.GetCurrentLevel().GetBackground();
     }
 
     // Update is called once per frame
