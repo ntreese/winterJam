@@ -38,6 +38,10 @@ public class LevelManager : MonoBehaviour
         
     }
 
+    public int GetObjective() {
+        return currentLevel.ShowObjective();
+    }
+
     public Level GetCurrentLevel() {
         return currentLevel;
     }

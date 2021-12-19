@@ -15,4 +15,4 @@ MonoBehaviour:
   numberOfScans: 5
   numberOfTotalBoxes: 6
   allowedMissedBoxes: 6
-  background: {fileID: 0}
+  background: {fileID: 21300000, guid: 94cd9cbc8825f7d4db78177f80ccd887, type: 3}
