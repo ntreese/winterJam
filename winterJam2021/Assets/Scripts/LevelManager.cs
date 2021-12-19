@@ -48,13 +48,14 @@ public class LevelManager : MonoBehaviour
     }
 
     public void didFinishLevel() {
-        Debug.Log("did finsih level");
         levelIndex++;
 
         if(availableLevels[levelIndex] != null) {
             currentLevel = availableLevels[levelIndex];
             spawnedBoxes = 0;
-            Debug.Log("New Level, index " + levelIndex);
+            
+            GameManager.instance.PrepareLevel();
+            GameManager.instance.UpdateBackground(levelIndex);
         }
     }
 

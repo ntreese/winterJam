@@ -27,6 +27,7 @@ public class GameManager : MonoBehaviour {
         scanner = FindObjectOfType<Scanner>();
         conveyorBelt = FindObjectOfType<ConveyorBelt>();
         spawner = FindObjectOfType<BoxSpawner>();
+        UpdateBackground(0);
     }
 
     public void HandleGameManager() {
@@ -41,7 +42,7 @@ public class GameManager : MonoBehaviour {
 
     // Start is called before the first frame update
     void Start() {
-        
+
     }
 
     // Update is called once per frame
@@ -131,16 +132,27 @@ public class GameManager : MonoBehaviour {
         Debug.Log("index: " + index);
         if(backgrounds[index] != null) {
             background.GetComponent<SpriteRenderer>().sprite = backgrounds[index];
+        } else {
+            Debug.Log("COuldn't find background");
         }
+    }
+
+    public void PrepareLevel() {
+        boxesGoneThrough = 0;
+        scanner = FindObjectOfType<Scanner>();
+        conveyorBelt = FindObjectOfType<ConveyorBelt>();
+        spawner = FindObjectOfType<BoxSpawner>();
+        scansRemaining = LevelManager.instance.GetCurrentLevel().GetNumberOfScans();
     }
 
     private IEnumerator LoadNextLevel() {
         Debug.Log("LoadNextLevel, waiting");
-        yield return new WaitForSecondsRealtime(2f);
+        yield return new WaitForSecondsRealtime(3.5f);
 
         Debug.Log("LoadNextLevel, restarting");
         LevelManager.instance.didFinishLevel();
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+
+        spawner.NewLevel();
     }
 
     // MARK: Private

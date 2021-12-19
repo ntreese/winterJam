@@ -41,6 +41,9 @@ public class BoxSpawner : MonoBehaviour {
     // Prefab what's needed
     // Reload scene with new level.
 
+    public void NewLevel() {
+        StartCoroutine(FillUpConveyorBelt());
+    }
 
     public IEnumerator SpawnBox(float delay) {
         if(!CheckIfSpawnAllowed()) {
