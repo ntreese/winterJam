@@ -14,7 +14,7 @@ public class Button : MonoBehaviour {
     [SerializeField] AudioClip source;
 
     public void DidClickButton() {
-        AudioSource.PlayClipAtPoint(source, Camera.main.transform.position, 0.3f);
+        AudioSource.PlayClipAtPoint(source, Camera.main.transform.position, 0.2f);
 
         switch (type) {
             case ButtonType.Remove:

@@ -950,7 +950,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scannerLight: {fileID: 1036450341}
   scannerColor: {r: 0.56078434, g: 1, b: 0.7764706, a: 0}
-  sound: {fileID: 8300000, guid: e3ec3f11b0a4d45049c256c8e9e19267, type: 3}
+  source: {fileID: 0}
 --- !u!82 &834640091
 AudioSource:
   m_ObjectHideFlags: 0
@@ -3187,7 +3187,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 98196df1ff47e438b8d01fabb385e215, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.5
+  m_Volume: 0.3
   m_Pitch: 1
   Loop: 1
   Mute: 0
