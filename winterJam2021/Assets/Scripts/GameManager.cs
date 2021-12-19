@@ -11,9 +11,11 @@ public class GameManager : MonoBehaviour {
     public int missedBoxes = 0;
     public int caughtBoxes = 0;
     public int scansRemaining = 10;
+    public int boxesGoneThrough = 0;
 
     ConveyorBelt conveyorBelt;
     Scanner scanner;
+    BoxSpawner spawner;
 
     // Holds the gameObject that is currently inside of the scanner
     private GameObject currentBox;
@@ -22,6 +24,7 @@ public class GameManager : MonoBehaviour {
         HandleGameManager();
         scanner = FindObjectOfType<Scanner>();
         conveyorBelt = FindObjectOfType<ConveyorBelt>();
+        spawner = FindObjectOfType<BoxSpawner>();
     }
 
     public void HandleGameManager() {
@@ -54,6 +57,7 @@ public class GameManager : MonoBehaviour {
     // MARK: Public
 
     public void DidPressPass() {
+        boxesGoneThrough++;
         if(currentBox.GetComponent<Box>().GetIsBoxBad()) {
             missedBoxes++;
             GameOver();
@@ -65,6 +69,7 @@ public class GameManager : MonoBehaviour {
     }
 
     public void DidPressScan() {
+        boxesGoneThrough++;
         if (scansRemaining > 0 && currentBox.GetComponent<Box>().GetGotScanned() == false) {
             Debug.Log("Handling scan");
             scansRemaining--;
@@ -79,7 +84,9 @@ public class GameManager : MonoBehaviour {
     }
 
     public void DidPressRemove() {
-        if(currentBox.GetComponent<Box>().GetIsBoxBad()) {
+        boxesGoneThrough++;
+
+        if (currentBox.GetComponent<Box>().GetIsBoxBad()) {
             caughtBoxes++;
         } else if(!currentBox.GetComponent<Box>().GetIsBoxBad()) {
             missedBoxes++;
@@ -113,7 +120,7 @@ public class GameManager : MonoBehaviour {
 
     public void LevelDone() {
         if(LevelManager.instance.GetCurrentLevel().GetDidFinishSpawning() &&
-            LevelManager.instance.GetSpawnedBoxes() >= LevelManager.instance.GetCurrentLevel().GetNumberOfTotalBoxes()) {
+            boxesGoneThrough >= LevelManager.instance.GetCurrentLevel().GetNumberOfTotalBoxes()) {
 
             StartCoroutine(LoadNextLevel());
         }
