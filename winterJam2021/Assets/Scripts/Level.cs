@@ -8,6 +8,7 @@ public class Level : ScriptableObject
     [SerializeField] int numberOfScans;
     [SerializeField] int numberOfTotalBoxes;
     [SerializeField] int allowedMissedBoxes;
+    [SerializeField] int objective;
     [SerializeField] Sprite background;
 
 
@@ -27,6 +28,10 @@ public class Level : ScriptableObject
 
     public Sprite GetBackground() {
         return background;
+    }
+
+    public int ShowObjective() {
+        return objective;
     }
 
     public void SetDidFinishSpawning() {
