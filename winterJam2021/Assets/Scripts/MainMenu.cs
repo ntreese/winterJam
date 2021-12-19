@@ -5,7 +5,18 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
+
+    private AudioSource source;
+
+    private void Awake() {
+        source = GetComponent<AudioSource>();    
+    }
+    private void Start() {
+        source.Play();
+    }
+
     public void PlayGame() {
+        source.Stop();
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
