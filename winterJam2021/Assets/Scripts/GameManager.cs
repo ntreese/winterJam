@@ -8,6 +8,10 @@ public class GameManager : MonoBehaviour {
     [SerializeField] Sprite[] backgrounds;
     [SerializeField] GameObject background;
 
+    [Header("Audio")]
+    [SerializeField] AudioClip missedBoxClip;
+    [SerializeField] AudioClip successClip;
+
     public static GameManager instance;
 
     public int missedBoxes = 0;
@@ -18,6 +22,7 @@ public class GameManager : MonoBehaviour {
     ConveyorBelt conveyorBelt;
     Scanner scanner;
     BoxSpawner spawner;
+    AudioSource source;
 
     // Holds the gameObject that is currently inside of the scanner
     private GameObject currentBox;
@@ -27,6 +32,8 @@ public class GameManager : MonoBehaviour {
         scanner = FindObjectOfType<Scanner>();
         conveyorBelt = FindObjectOfType<ConveyorBelt>();
         spawner = FindObjectOfType<BoxSpawner>();
+        source = GetComponent<AudioSource>();
+
         UpdateBackground(0);
     }
 
@@ -62,6 +69,7 @@ public class GameManager : MonoBehaviour {
     public void DidPressPass() {
         boxesGoneThrough++;
         if(currentBox.GetComponent<Box>().GetIsBoxBad()) {
+            source.PlayOneShot(missedBoxClip);
             missedBoxes++;
             GameOver();
         }
@@ -89,8 +97,11 @@ public class GameManager : MonoBehaviour {
         boxesGoneThrough++;
 
         if (currentBox.GetComponent<Box>().GetIsBoxBad()) {
+            source.PlayOneShot(successClip);
             caughtBoxes++;
+
         } else if(!currentBox.GetComponent<Box>().GetIsBoxBad()) {
+            source.PlayOneShot(missedBoxClip);
             missedBoxes++;
             GameOver();
         }
