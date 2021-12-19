@@ -69,7 +69,6 @@ public class GameManager : MonoBehaviour {
     }
 
     public void DidPressScan() {
-        boxesGoneThrough++;
         if (scansRemaining > 0 && currentBox.GetComponent<Box>().GetGotScanned() == false) {
             Debug.Log("Handling scan");
             scansRemaining--;
