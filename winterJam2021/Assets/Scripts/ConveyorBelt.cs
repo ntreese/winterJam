@@ -8,10 +8,13 @@ public class ConveyorBelt : MonoBehaviour {
     private bool isConveyorBeltFull = false;
     private SurfaceEffector2D effector;
 
+    private AudioSource source;
+
     // Not sure if we need it here.
     private BoxSpawner spawner;
 
     private void Awake() {
+        source = GetComponent<AudioSource>();
         effector = GetComponent<SurfaceEffector2D>();
         spawner = FindObjectOfType<BoxSpawner>();
     }
@@ -19,6 +22,7 @@ public class ConveyorBelt : MonoBehaviour {
     // Start is called before the first frame update
     void Start() {
         effector.speed = conveyorBeltSpeed;
+        source.Play();
     }
 
     // Update is called once per frame
@@ -32,10 +36,12 @@ public class ConveyorBelt : MonoBehaviour {
     }
 
     public void StartConveyorBelt() {
+        source.Play();
         ModifyConveyorSpeed(conveyorBeltSpeed);
     }
 
     public void StopConveyorBelt() {
+        source.Stop();
         ModifyConveyorSpeed(0);
     }
 
@@ -47,7 +53,7 @@ public class ConveyorBelt : MonoBehaviour {
             isConveyorBeltFull = true;
 
             // Stop conveyor belt
-            ModifyConveyorSpeed(0);
+            StopConveyorBelt();
 
             // Stop all Coroutines that are running on the spawner
             spawner.StopAllCoroutines();

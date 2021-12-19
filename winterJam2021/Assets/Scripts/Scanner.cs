@@ -6,18 +6,20 @@ public class Scanner : MonoBehaviour
 {
     [SerializeField] Light scannerLight;
     [SerializeField] Color scannerColor;
-    [SerializeField] AudioClip sound;
+    [SerializeField] AudioSource source;
 
     private void Awake() {
         scannerLight = GetComponentInChildren<Light>();
+        source = GetComponent<AudioSource>();
     }
 
     public void DoXRay() {
         scannerLight.color = scannerColor;
-        AudioSource.PlayClipAtPoint(sound, Camera.main.transform.position, 1f);
+        source.Play();
     }
 
     public void StopXRay() {
+        source.Stop();
         scannerLight.color = Color.white;
     }
 }
