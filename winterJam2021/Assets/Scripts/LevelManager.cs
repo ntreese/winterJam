@@ -66,4 +66,8 @@ public class LevelManager : MonoBehaviour
     public int GetSpawnedBoxes() {
         return spawnedBoxes;
     }
+
+    public void DestroyLevelManager() {
+        instance = null;
+    }
 }

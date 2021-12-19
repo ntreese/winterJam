@@ -155,6 +155,10 @@ public class GameManager : MonoBehaviour {
         spawner.NewLevel();
     }
 
+    public void DestroyGameManager() {
+        instance = null;
+    }
+
     // MARK: Private
 
     private IEnumerator StopXRay() {

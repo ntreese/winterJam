@@ -6,6 +6,8 @@ using UnityEngine.SceneManagement;
 public class GameOver : MonoBehaviour
 {
     public void TryAgain() {
+        LevelManager.instance.DestroyLevelManager();
+        GameManager.instance.DestroyGameManager();
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex -1);
     }
 

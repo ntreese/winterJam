@@ -12,8 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90b504db9ac264f4282f3e288425dc77, type: 3}
   m_Name: Level 2
   m_EditorClassIdentifier: 
-  numberOfScans: 1000
-  numberOfTotalBoxes: 6
-  allowedMissedBoxes: 6
-  objective: 6
-  background: {fileID: 21300000, guid: 94cd9cbc8825f7d4db78177f80ccd887, type: 3}
+  numberOfScans: 7
+  numberOfTotalBoxes: 15
+  allowedMissedBoxes: 4
+  objective: 4
