@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour {
 
     [SerializeField] float scanDuration = 5f;
-    [SerializeField] List<Sprite> backgrounds;
+    [SerializeField] Sprite[] backgrounds;
     [SerializeField] GameObject background;
 
     public static GameManager instance;
