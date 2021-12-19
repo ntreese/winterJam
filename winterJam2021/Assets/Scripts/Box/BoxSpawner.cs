@@ -38,12 +38,17 @@ public class BoxSpawner : MonoBehaviour {
         }
     }
 
+    // TODO: @Hannes -
+    // Prefab what's needed
+    // Reload scene with new level.
+
+
     public IEnumerator SpawnBox(float delay) {
         if(!CheckIfSpawnAllowed()) {
             LevelManager.instance.GetCurrentLevel().SetDidFinishSpawning();
             yield break;
         }
-
+        
         yield return new WaitForSeconds(delay);
 
         // Instantiate new box at spawner position

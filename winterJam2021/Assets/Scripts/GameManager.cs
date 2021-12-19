@@ -60,6 +60,8 @@ public class GameManager : MonoBehaviour {
         }
         conveyorBelt.StartConveyorBelt();
         Debug.Log("Handling pass");
+
+        LevelDone();
     }
 
     public void DidPressScan() {
@@ -72,6 +74,8 @@ public class GameManager : MonoBehaviour {
             scanner.DoXRay();
             StartCoroutine(StopXRay());
         }
+
+        LevelDone();
     }
 
     public void DidPressRemove() {
@@ -83,6 +87,8 @@ public class GameManager : MonoBehaviour {
         }
         currentBox.GetComponent<Box>().SetShouldBoxBeRemoved(true);
         conveyorBelt.StartConveyorBelt();
+
+        LevelDone();
     }
 
     public GameObject GetCurrentBox() {
@@ -103,6 +109,22 @@ public class GameManager : MonoBehaviour {
 
     public void SetCurrentBox(GameObject newBox) {
         currentBox = newBox;
+    }
+
+    public void LevelDone() {
+        // TODO: @Hannes - Line below is faulty, we need to check if all boxes are checked.
+        //if(LevelManager.instance.GetCurrentLevel().GetDidFinishSpawning()) {
+        //    StartCoroutine(LoadNextLevel());
+        //}
+    }
+
+    private IEnumerator LoadNextLevel() {
+        Debug.Log("LoadNextLevel, waiting");
+        yield return new WaitForSecondsRealtime(2f);
+
+        Debug.Log("LoadNextLevel, restarting");
+        LevelManager.instance.didFinishLevel();
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     // MARK: Private
