@@ -1,19 +1,28 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour {
 
     [SerializeField] float scanDuration = 5f;
+    [SerializeField] Sprite[] backgrounds;
+    [SerializeField] GameObject background;
+
+    [Header("Audio")]
+    [SerializeField] AudioClip missedBoxClip;
+    [SerializeField] AudioClip successClip;
 
     public static GameManager instance;
 
     public int missedBoxes = 0;
     public int caughtBoxes = 0;
     public int scansRemaining = 10;
+    public int boxesGoneThrough = 0;
 
     ConveyorBelt conveyorBelt;
     Scanner scanner;
+    BoxSpawner spawner;
+    AudioSource source;
 
     // Holds the gameObject that is currently inside of the scanner
     private GameObject currentBox;
@@ -22,6 +31,10 @@ public class GameManager : MonoBehaviour {
         HandleGameManager();
         scanner = FindObjectOfType<Scanner>();
         conveyorBelt = FindObjectOfType<ConveyorBelt>();
+        spawner = FindObjectOfType<BoxSpawner>();
+        source = GetComponent<AudioSource>();
+
+        UpdateBackground(0);
     }
 
     public void HandleGameManager() {
@@ -44,15 +57,26 @@ public class GameManager : MonoBehaviour {
 
     }
 
+    private void GameOver() {
+        if(missedBoxes >= LevelManager.instance.GetCurrentLevel().GetAllowedMissingBoxes()) {
+            StopAllCoroutines();
+            SceneManager.LoadScene(2);
+        }
+    }
 
     // MARK: Public
 
     public void DidPressPass() {
+        boxesGoneThrough++;
         if(currentBox.GetComponent<Box>().GetIsBoxBad()) {
+            source.PlayOneShot(missedBoxClip);
             missedBoxes++;
+            GameOver();
         }
         conveyorBelt.StartConveyorBelt();
         Debug.Log("Handling pass");
+
+        LevelDone();
     }
 
     public void DidPressScan() {
@@ -65,16 +89,26 @@ public class GameManager : MonoBehaviour {
             scanner.DoXRay();
             StartCoroutine(StopXRay());
         }
+
+        LevelDone();
     }
 
     public void DidPressRemove() {
-        if(currentBox.GetComponent<Box>().GetIsBoxBad()) {
+        boxesGoneThrough++;
+
+        if (currentBox.GetComponent<Box>().GetIsBoxBad()) {
+            source.PlayOneShot(successClip);
             caughtBoxes++;
+
         } else if(!currentBox.GetComponent<Box>().GetIsBoxBad()) {
+            source.PlayOneShot(missedBoxClip);
             missedBoxes++;
+            GameOver();
         }
         currentBox.GetComponent<Box>().SetShouldBoxBeRemoved(true);
         conveyorBelt.StartConveyorBelt();
+
+        LevelDone();
     }
 
     public GameObject GetCurrentBox() {
@@ -95,6 +129,45 @@ public class GameManager : MonoBehaviour {
 
     public void SetCurrentBox(GameObject newBox) {
         currentBox = newBox;
+    }
+
+    public void LevelDone() {
+        if(LevelManager.instance.GetCurrentLevel().GetDidFinishSpawning() &&
+            boxesGoneThrough >= LevelManager.instance.GetCurrentLevel().GetNumberOfTotalBoxes()) {
+
+            StartCoroutine(LoadNextLevel());
+        }
+    }
+
+    public void UpdateBackground(int index) {
+        Debug.Log("index: " + index);
+        if(backgrounds[index] != null) {
+            background.GetComponent<SpriteRenderer>().sprite = backgrounds[index];
+        } else {
+            Debug.Log("COuldn't find background");
+        }
+    }
+
+    public void PrepareLevel() {
+        boxesGoneThrough = 0;
+        scanner = FindObjectOfType<Scanner>();
+        conveyorBelt = FindObjectOfType<ConveyorBelt>();
+        spawner = FindObjectOfType<BoxSpawner>();
+        scansRemaining = LevelManager.instance.GetCurrentLevel().GetNumberOfScans();
+    }
+
+    private IEnumerator LoadNextLevel() {
+        Debug.Log("LoadNextLevel, waiting");
+        yield return new WaitForSecondsRealtime(3.5f);
+
+        Debug.Log("LoadNextLevel, restarting");
+        LevelManager.instance.didFinishLevel();
+
+        spawner.NewLevel();
+    }
+
+    public void DestroyGameManager() {
+        instance = null;
     }
 
     // MARK: Private

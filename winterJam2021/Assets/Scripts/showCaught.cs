@@ -3,9 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class showCaught : MonoBehaviour
-{
-    private int caught = 0;
+public class showCaught : MonoBehaviour {
     public Text caughtText;
 
     void Update() {

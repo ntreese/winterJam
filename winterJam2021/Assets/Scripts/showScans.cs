@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class showScans : MonoBehaviour {
-    private int scans = 10;
     public Text scanText;
 
     void Update() {
